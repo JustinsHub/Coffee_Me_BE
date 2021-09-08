@@ -3,4 +3,4 @@
 - Facts about coffee API
 
 # Coffee Me 1st DB draft
-<img src="RM-images/what_is_coffee.png">
+<img src="RM-images/CoffeeMeDBModels.png">
