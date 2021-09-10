@@ -10,8 +10,39 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model coffee_facts { 
-  id Int @id @default(autoincrement())
-  coffee_facts String?
-  admin_id Int 
+model Admin {
+  id         Int      @id @default(autoincrement())
+  username   String   @unique
+  password   String
+  admin_only Boolean
+  created_on DateTime @default(now())
+
+  @@map("admin")
+  Coffee_Facts   Coffee_Facts[]
+  Rejected_Facts Rejected_Facts[]
+}
+
+model Coffee_Facts {
+  id           Int    @id @default(autoincrement())
+  coffee_facts String
+  admin        Admin  @relation(fields: [admin_id], references: [id])
+  admin_id     Int
+
+  @@map("coffee_facts")
+}
+
+model Rejected_Facts {
+  id             Int    @id @default(autoincrement())
+  rejected_facts String
+  admin          Admin  @relation(fields: [admin_id], references: [id])
+  admin_id       Int
+
+  @@map("rejected_facts")
+}
+
+model Review_Facts {
+  id           Int    @id @default(autoincrement())
+  review_facts String
+
+  @@map("review_facts")
 }
