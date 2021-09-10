@@ -1,0 +1,56 @@
+*** Initial set up for Typescript NodeJS ***
+- tsc --init 
+- set up tsconfig for compiler rootDir/outDir
+- npm --init
+    - "start": "node ./dist/server.js",
+    - "build": "tsc -p .",
+    - "dev": "nodemon ./src/server.ts",
+    - "test": "jest" <-- When ready to test
+
+- npm i express typescript ts-node nodemon @types/express @types/node dotenv
+- set up server, config, db, error handling
+- set up ORM/Database -> find a good ORM framework
+- if using Prisma ORM -> go to quickstart on website and follow quick tutorial if forgotten how to set up
+
+*** Ready to develop ***
+
+- set up app initial middleware/libraries for app.use() -> express.json, cors, urlcoded, auth, morgan, routes, error handling
+- work on models, routing, -> test on insomnia (rinse and repeat)
+- tests
+
+*** TODO ***
+app
+
+*** User Flow ***
+- User does not have to login
+- User clicks a button that randomly generates a coffee fact
+- User can post a coffee fact. Fact does not post until admin reviews it and approves it.
+- Only admin has a login/register (only admin can know the path/route)
+- No user can access admin route/path (!admin)
+- Admin registration needs a code in order to register?
+
+*** Notes on User Flow ***
+- When user POST a coffee_fact request, it gets sent to review_facts
+- Admin approves or rejects the fact
+- Admin able to PATCH user request for proofreading
+- If approved, gets posted to coffee_facts table
+- If rejected, gets thrown into rejected_facts table
+- once approved/rejected DELETE from coffee_facts_review table
+- reviews has it's own page in order to approve/reject a fact
+
+*** find out how to have reviews posted on table when admin approves/rejects
+
+- coffee_facts_reviews is posted and admin has access to a ONLY admin page that has all the posted facts waiting for review.
+the admin can reject/accept. When the admin accept/rejects it does a POST request on the right TABLE. 
+
+
+- scrape websites for coffee facts and find out how to insert it on table to have pre existing
+- rejected is for admin and developer to see only (another route for admin or keep it in database?). 
+- approved facts is for all to see (renders 1 fact per request)
+- feature to add on future likes/heart on each facts
+
+*** Possible issues ***
+- How to INSERT more data on database when launched
+- What happens if servers are down?
+- What happens if the user is having a hard time requesting data/or not receiving? (render something else?)
+- Need admin information to be secured

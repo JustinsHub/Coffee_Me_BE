@@ -1,6 +1,7 @@
-# what-is-coffee-BE
+# Coffee-Me-BE
 
 - Facts about coffee API
+- Tech Stack: Typescript, React, NodeJS, Express, PostgreSQL
 
 # Coffee Me 1st DB draft
 <p align="center">
