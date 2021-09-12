@@ -12,8 +12,17 @@ class Coffee {
         return allCoffeeFacts
     }
 
-    static async getSingleFact(id:number) {
-        return "world"
+    static async getSingleFact(id:string) {
+        const singleFact = await coffee_Facts.findFirst({
+            where: {
+                id: parseInt(id) //<-- needs to be an integer to look into DB (string in API parameter)
+            },
+            select: {
+                coffee_facts: true
+                
+            }
+        })
+        return singleFact
     }
 }
 
