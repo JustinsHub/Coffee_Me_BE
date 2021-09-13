@@ -26,5 +26,4 @@ class Coffee {
     }
 }
 
-
 export default Coffee

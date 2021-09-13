@@ -13,6 +13,7 @@ router.get('/api/facts', async(req: Request, res: Response, next: NextFunction) 
 })
 
 router.get('/api/facts/:id', async(req: Request, res: Response, next: NextFunction)=> {
+    //check if there is no id ERRORHANDLE
     try {
         const { id } = req.params
         const singleFact = await Coffee.getSingleFact(id)
