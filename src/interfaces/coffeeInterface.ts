@@ -1,4 +1,4 @@
 export interface CoffeeInterface {
-    getAllFacts(): Promise<string[]>
-    getSingleFact(): Promise<string>
+    getAllFacts(): Promise<{ coffee_facts: string; }[]>
+    getSingleFact(id:string): Promise<{ coffee_facts: string; } | null>
 }

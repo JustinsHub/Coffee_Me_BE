@@ -1,8 +1,11 @@
 import { PrismaClient } from ".prisma/client"
+import { CoffeeInterface } from "../interfaces/coffeeInterface"
+import { ErrorBadRequest, ErrorNotFound } from "../expressErrors"
 
 const { coffee_Facts } = new PrismaClient()
 
-class Coffee {
+const Coffee = class {
+
     static async getAllFacts() {
         const allCoffeeFacts = await coffee_Facts.findMany({
             select: {
@@ -19,10 +22,12 @@ class Coffee {
             },
             select: {
                 coffee_facts: true
-                
             }
         })
-        return singleFact
+        if(singleFact) {
+            return singleFact
+        } 
+        throw new ErrorNotFound()
     }
 }
 
