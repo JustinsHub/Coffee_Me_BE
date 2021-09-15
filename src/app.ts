@@ -16,15 +16,6 @@ app.use('/coffee', coffeeFacts)
 //rejectedfacts on coffee?
 //admin login
 
-app.use((error:ExpressError, req:Request, res:Response, next:NextFunction) => {
-    let status:number = error.status || 500
-    let message:string = error.message
-    return res.status(status).json({
-        error: {
-            message, 
-            status
-        }
-    })
-});
+app.use(errorHandler)
 
 export default app
