@@ -32,7 +32,7 @@ router.post('/api/facts/submit/:adminId', async(req: Request, res: Response, nex
     try {
         const { adminId } = req.params
         const { fact } = req.body //change if needed when review facts applied
-        const submitFact = await Coffee.createCoffeeFacts(fact, +adminId)
+        const submitFact = await Coffee.approvedCoffeeFacts(fact, +adminId)
         return res.status(201).json(submitFact)
     } catch (error:any) {
         if(error.code === "P2003"){ //Foreign Key constraint Prisma error

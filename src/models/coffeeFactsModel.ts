@@ -1,10 +1,10 @@
 import { PrismaClient } from ".prisma/client"
-import { CoffeeInterface } from "../interfaces/coffeeInterface"
+import { CoffeeMeInterface } from "../interfaces/coffeeIMeInterface"
 import { ErrorNotAuthorized, ErrorNotFound } from "../expressErrors"
 
 const { coffee_Facts } = new PrismaClient()
 
-const Coffee: CoffeeInterface = class {
+const Coffee: CoffeeMeInterface = class {
 
     static async getAllFacts() {
         const allCoffeeFacts = await coffee_Facts.findMany({
@@ -29,14 +29,14 @@ const Coffee: CoffeeInterface = class {
         } 
         throw new ErrorNotFound()
     }
-    static async createCoffeeFacts(fact:string, adminId: number) {
+    static async approvedCoffeeFacts(fact:string, adminId: number) {
         const adminUser = await coffee_Facts.findUnique({
             where: {
                 id: adminId,
             }
         })
 
-        const newCoffeeFact = await coffee_Facts.create({
+        const approvedCoffeeFact = await coffee_Facts.create({
             data: {
                 coffee_facts: fact,
                 admin_id: adminId
@@ -47,7 +47,7 @@ const Coffee: CoffeeInterface = class {
         })
         
         if(adminUser){
-            return newCoffeeFact
+            return approvedCoffeeFact
         }
         throw new ErrorNotAuthorized() //fix on how to apply this properly.
     }
