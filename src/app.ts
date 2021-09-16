@@ -15,7 +15,7 @@ app.use(morgan('dev'))
 
 
 app.use('/coffee', coffeeFacts)
-app.use('/review', reviewFacts)
+app.use('/', reviewFacts)
 app.use('/rejected', rejectedFacts)
 //admin login
 

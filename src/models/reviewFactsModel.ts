@@ -2,9 +2,9 @@ import { PrismaClient } from '@prisma/client'
 import { ErrorNotFound } from '../expressErrors'
 import { ReviewFactsInterface } from '../interfaces/coffeeIMeInterface'
 
-const { review_Facts }= new PrismaClient()
+const { review_Facts } = new PrismaClient()
 
-const Review: ReviewFactsInterface = class {// change interface
+export const Review: ReviewFactsInterface = class {
     static async getAllReviews(){
         const coffeeReviews = await review_Facts.findMany({
             select: {
@@ -33,6 +33,7 @@ const Review: ReviewFactsInterface = class {// change interface
         throw new ErrorNotFound()
     }
     static async createCoffeeFact(fact:string){
+        //error handle, needs to be string
         const newCoffeeFact = await review_Facts.create({
             data: {
                 review_facts: fact
