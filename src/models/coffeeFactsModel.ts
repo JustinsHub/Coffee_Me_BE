@@ -40,13 +40,16 @@ const Coffee: CoffeeInterface = class {
             data: {
                 coffee_facts: fact,
                 admin_id: adminId
+            },
+            select: {
+                coffee_facts: true
             }
         })
         
         if(adminUser){
             return newCoffeeFact
         }
-        throw new ErrorNotAuthorized()
+        throw new ErrorNotAuthorized() //fix on how to apply this properly.
     }
 }
 
