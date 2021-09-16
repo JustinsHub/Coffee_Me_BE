@@ -1,5 +1,5 @@
-import e, { Router, Request, Response, NextFunction } from "express";
-import { ErrorNotAuthorized, ErrorNotFound } from "../expressErrors";
+import { Router, Request, Response, NextFunction } from "express";
+import { ErrorNotAuthorized } from "../expressErrors";
 import Coffee from "../models/coffeeFactsModel";
 
 const router = Router()
@@ -25,10 +25,7 @@ router.get('/api/facts/:id', async(req: Request, res: Response, next: NextFuncti
 
 router.post('/api/facts/submit/:adminId', async(req: Request, res: Response, next: NextFunction) => {
     // this has to be posted by admin from review facts on approval TEST
-    //make reviews facts api
-    //make rejected
     //make login authentication/authorization for admin
-
 
     //when the admin logs in and checks for approval, it request this api to post on coffee facts. 
     //when it posts it sends admin id back?
@@ -42,6 +39,7 @@ router.post('/api/facts/submit/:adminId', async(req: Request, res: Response, nex
             return next(new ErrorNotAuthorized())
         }
     }
+    //create PATCH/DELETE? 
 })
 
 export default router
