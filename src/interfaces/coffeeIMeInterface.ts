@@ -9,3 +9,8 @@ export interface ReviewFactsInterface {
     getSingleReview(id:string): Promise<{ review_facts: string; } | null>
     createCoffeeFact(fact:string): Promise<any>
 }
+
+export interface RejectedFactsInterface {
+    getAllRejectedFacts(): Promise<{rejected_facts: string;}[]>
+    getSingleRejectedFact(id:string): Promise<{ rejected_facts: string; } | null>
+}
