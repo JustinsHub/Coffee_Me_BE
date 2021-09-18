@@ -25,7 +25,8 @@ export const Review: ReviewFactsInterface = class {
                 id: +id
             },
             select: {
-                review_facts: true
+                review_facts: true,
+                id: true
             }
         })
         if(reviewID){
@@ -65,5 +66,21 @@ export const Review: ReviewFactsInterface = class {
     //add error handling on duplicate ids?
     //id missing
     }
-    //delete.
+
+    static async deleteReviewedFact(id:number) {
+        const reviewFactID = await review_Facts.findUnique({
+            where: {
+                id
+            }
+        })
+        const reviewedFact = await review_Facts.delete({
+            where: {
+                id
+            }
+        })
+        if(reviewFactID){
+            return reviewedFact
+        }
+        throw new ErrorNotFound()
+    }
 }

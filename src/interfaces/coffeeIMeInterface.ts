@@ -7,8 +7,9 @@ export interface CoffeeMeInterface {
 export interface ReviewFactsInterface {
     getAllReviews(): Promise<{review_facts: string;}[]>
     getSingleReview(id:number): Promise<{ review_facts: string; } | null>
-    createCoffeeFact(fact:string): Promise<any>
-    updateReviewFact(id:number, data:any): Promise<any>
+    createCoffeeFact(fact:string): Promise<unknown>
+    updateReviewFact(id:number, data:any): Promise<unknown>
+    deleteReviewedFact(id:number): Promise<unknown>
 }
 
 export interface RejectedFactsInterface {

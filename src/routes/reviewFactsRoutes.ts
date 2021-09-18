@@ -44,3 +44,14 @@ router.patch('/api/reviews/:id/update', async(req: Request, res: Response, next:
         return next(error)
     }
 })
+
+
+router.delete('/api/reviews/:id/delete', async(req:Request, res:Response, next:NextFunction)=> {
+    try {
+        const { id } = req.params
+        const deleteFact = await Review.deleteReviewedFact(+id)
+        return res.json(deleteFact)
+    } catch (error) {
+        return next(error)
+    }
+})
