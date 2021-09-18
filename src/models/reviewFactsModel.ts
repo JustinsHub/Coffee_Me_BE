@@ -8,15 +8,16 @@ export const Review: ReviewFactsInterface = class {
     static async getAllReviews(){
         const coffeeReviews = await review_Facts.findMany({
             select: {
+                id: true,
                 review_facts: true
             }
         })
         return coffeeReviews
     }
-    static async getSingleReview(id:string){
+    static async getSingleReview(id:number){
         const reviewID = await review_Facts.findUnique({
             where: {
-                id: +id
+                id: id
             }
         })
         const singleReview = await review_Facts.findFirst({
@@ -41,5 +42,28 @@ export const Review: ReviewFactsInterface = class {
         })
         return newCoffeeFact
     }
-    //update and delete.
+
+    static async updateReviewFact(id:number, data:any){
+    const reviewID = await review_Facts.findUnique({
+        where: {
+            id: id
+        }
+    })
+    const reviewFact = await review_Facts.update({
+        where:{
+            id: id
+        },
+        //this is specific to the update if casting an object. Can just add req.body as data and can edit (add validator if so)
+        data: {
+            review_facts: data
+        }
+    })
+    if(reviewID){
+        return reviewFact 
+    }
+    throw new ErrorNotFound()
+    //add error handling on duplicate ids?
+    //id missing
+    }
+    //delete.
 }

@@ -6,11 +6,13 @@ export interface CoffeeMeInterface {
 
 export interface ReviewFactsInterface {
     getAllReviews(): Promise<{review_facts: string;}[]>
-    getSingleReview(id:string): Promise<{ review_facts: string; } | null>
+    getSingleReview(id:number): Promise<{ review_facts: string; } | null>
     createCoffeeFact(fact:string): Promise<any>
+    updateReviewFact(id:number, data:any): Promise<any>
 }
 
 export interface RejectedFactsInterface {
     getAllRejectedFacts(): Promise<{rejected_facts: string;}[]>
     getSingleRejectedFact(id:string): Promise<{ rejected_facts: string; } | null>
+    rejectedCoffeeFact(fact:string, adminId: number): Promise<any>
 }

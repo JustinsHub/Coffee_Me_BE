@@ -8,6 +8,7 @@ export const RejectedFact: RejectedFactsInterface = class {
     static async getAllRejectedFacts(){
         const allRejectedFacts = await rejected_Facts.findMany({
             select: {
+                id: true,
                 rejected_facts: true
             }
         })
@@ -25,6 +26,7 @@ export const RejectedFact: RejectedFactsInterface = class {
                 id: +id
             },
             select: {
+                id: true,
                 rejected_facts: true
             }
         })
@@ -46,7 +48,7 @@ export const RejectedFact: RejectedFactsInterface = class {
                 admin_id: adminId
             }
         })
-        if(!adminUser){
+        if(adminUser){
             return rejectedFact
         }
         throw new ErrorNotAuthorized()
