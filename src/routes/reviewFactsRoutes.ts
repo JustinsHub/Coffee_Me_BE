@@ -1,4 +1,5 @@
 import { Router, Request, Response, NextFunction } from "express";
+import { ErrorNotFound } from "../expressErrors";
 import { Review } from "../models/reviewFactsModel";
 
 export const router = Router()
@@ -49,8 +50,8 @@ router.patch('/api/reviews/:id/update', async(req: Request, res: Response, next:
 router.delete('/api/reviews/:id/delete', async(req:Request, res:Response, next:NextFunction)=> {
     try {
         const { id } = req.params
-        const deleteFact = await Review.deleteReviewedFact(+id)
-        return res.json(deleteFact)
+        await Review.deleteReviewedFact(+id)
+        return res.json({review: "Successfully deleted."})
     } catch (error) {
         return next(error)
     }

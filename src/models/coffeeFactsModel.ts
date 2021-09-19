@@ -35,7 +35,11 @@ const Coffee: CoffeeMeInterface = class {
                 id: adminId,
             }
         })
-
+        
+        if(!adminUser){
+            throw new ErrorNotAuthorized()
+        }
+        
         const approvedCoffeeFact = await coffee_Facts.create({
             data: {
                 coffee_facts: fact,
@@ -45,11 +49,7 @@ const Coffee: CoffeeMeInterface = class {
                 coffee_facts: true
             }
         })
-        
-        if(adminUser){
-            return approvedCoffeeFact
-        }
-        throw new ErrorNotAuthorized() //fix on how to apply this properly.
+        return approvedCoffeeFact
     }
 }
 

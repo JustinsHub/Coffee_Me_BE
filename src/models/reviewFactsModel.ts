@@ -73,14 +73,17 @@ export const Review: ReviewFactsInterface = class {
                 id
             }
         })
+
+        if(!reviewFactID){
+            throw new ErrorNotFound()
+        }
+
         const reviewedFact = await review_Facts.delete({
             where: {
                 id
             }
         })
-        if(reviewFactID){
-            return reviewedFact
-        }
-        throw new ErrorNotFound()
+        return reviewedFact
+        //make admin, bcrypt, jwt
     }
 }
