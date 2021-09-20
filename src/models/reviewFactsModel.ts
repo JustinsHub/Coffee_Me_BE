@@ -20,6 +20,11 @@ export const Review: ReviewFactsInterface = class {
                 id: id
             }
         })
+
+        if(!reviewID){
+            throw new ErrorNotFound()
+        }
+
         const singleReview = await review_Facts.findFirst({
             where: {
                 id: +id
@@ -29,10 +34,7 @@ export const Review: ReviewFactsInterface = class {
                 id: true
             }
         })
-        if(reviewID){
-            return singleReview
-        }
-        throw new ErrorNotFound()
+        return singleReview
     }
     static async createCoffeeFact(fact:string){
         //error handle, needs to be string
@@ -84,6 +86,5 @@ export const Review: ReviewFactsInterface = class {
             }
         })
         return reviewedFact
-        //make admin, bcrypt, jwt
     }
 }

@@ -35,7 +35,9 @@ router.post('/api/facts/:adminId/submit', async(req: Request, res: Response, nex
         const submitFact = await Coffee.approvedCoffeeFacts(fact, +adminId)
         return res.status(201).json(submitFact)
     } catch (error:any) {
-        
+        if(error.code === "P2003"){ //Foreign Key constraint Prisma error
+            return next(new ErrorNotAuthorized())
+        }
         return next(error)
     }
     //create PATCH/DELETE? 

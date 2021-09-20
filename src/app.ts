@@ -1,9 +1,10 @@
-import express, { NextFunction, Request, Response } from "express";
+import express from "express";
 import cors from 'cors'
 import morgan from 'morgan'
 import coffeeFacts from './routes/coffeeFactsRoutes'
-import {router as reviewFacts} from './routes/reviewFactsRoutes'
+import { router as reviewFacts } from './routes/reviewFactsRoutes'
 import { router as rejectedFacts } from './routes/rejectedFactsRoutes'
+import { router as adminUser } from './routes/adminRoutes'
 import { errorHandler } from "./expressErrors";
 
 const app = express()
@@ -17,7 +18,7 @@ app.use(morgan('dev'))
 app.use('/coffee', coffeeFacts)
 app.use('/', reviewFacts)
 app.use('/', rejectedFacts)
-//admin login
+app.use('/', adminUser)
 
 app.use(errorHandler)
 

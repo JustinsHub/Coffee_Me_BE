@@ -17,3 +17,8 @@ export interface RejectedFactsInterface {
     getSingleRejectedFact(id:string): Promise<{ rejected_facts: string; } | null>
     rejectedCoffeeFact(fact:string, adminId: number): Promise<any>
 }
+
+export interface AdminInterface {
+    getAllAdmins(): Promise<{rejected_facts: string;}[]>
+    // getSingleAdmin(id:number) Promise<>: 
+}
