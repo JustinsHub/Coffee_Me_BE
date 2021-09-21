@@ -1,8 +1,6 @@
 import { PrismaClient } from ".prisma/client";
 import bcrypt from 'bcrypt'
-import { ErrorNotFound } from "../expressErrors";
-import dotenv from 'dotenv'
-dotenv.config()
+import { ErrorBadRequest, ErrorNotAuthorized, ErrorNotFound } from "../expressErrors";
 
 const { admin } = new PrismaClient()
 
@@ -37,6 +35,16 @@ export const Admin = class {
     }
 
     static async registerAdminUser(username:string, password:string, isAdmin: boolean){
+        const adminUsername = await admin.findUnique({
+            where: {
+                username
+            }
+        })
+        //Finding duplicate usernames
+        if(adminUsername){
+            throw new ErrorBadRequest("Username already taken.")
+        }
+
         const bcryptWorkFactor = process.env.BCRYPT_WORK_FACTOR as string | number
         const hashedPassword = await bcrypt.hash(password, +bcryptWorkFactor)
         const registerNewAdmin = await admin.create({
@@ -47,6 +55,32 @@ export const Admin = class {
             }
         })
         return registerNewAdmin 
-        //error handling
     }
+    static async loginAdminUser(username:string, password:string){
+        const loginAdmin = await admin.findUnique({
+            where: {
+                username
+            },
+            select: {
+                username: true,
+            }
+        })
+
+        const adminPassword = await admin.findUnique({
+            where:{
+                username,
+            },
+            select: {
+                password: true
+            }
+        })
+        const adminBcrypt = await bcrypt.compare(password, adminPassword?.password as string)
+        if(adminBcrypt){
+            return loginAdmin
+        }
+        throw new ErrorNotAuthorized('Password not gud.')
+    }
+
+    //no patch?
+    //delete
 }
