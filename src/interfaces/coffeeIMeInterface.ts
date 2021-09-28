@@ -1,3 +1,5 @@
+import { Request } from "express";
+
 export interface CoffeeMeInterface {
     getAllFacts(): Promise<{ coffee_facts: string; }[]>
     getSingleFact(id:string): Promise<{ coffee_facts: string; } | null>
@@ -21,4 +23,8 @@ export interface RejectedFactsInterface {
 export interface AdminInterface {
     getAllAdmins(): Promise<{rejected_facts: string;}[]>
     // getSingleAdmin(id:number) Promise<>: 
+}
+
+export interface RequestUserInterface extends Request {
+    token? : Record<string,any> | string 
 }

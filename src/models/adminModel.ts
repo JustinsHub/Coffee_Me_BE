@@ -1,6 +1,8 @@
 import { PrismaClient } from ".prisma/client";
 import bcrypt from 'bcrypt'
 import { ErrorBadRequest, ErrorNotAuthorized, ErrorNotFound } from "../expressErrors";
+import { BCRYPT_WORK_FACTOR, SECRET_KEY } from '../config'
+import jwt from "jsonwebtoken";
 
 const { admin } = new PrismaClient()
 
@@ -45,7 +47,7 @@ export const Admin = class {
             throw new ErrorBadRequest("Username already taken.")
         }
 
-        const bcryptWorkFactor = process.env.BCRYPT_WORK_FACTOR as string | number
+        const bcryptWorkFactor = BCRYPT_WORK_FACTOR as string | number
         const hashedPassword = await bcrypt.hash(password, +bcryptWorkFactor)
         const registerNewAdmin = await admin.create({
             data: {
@@ -62,7 +64,7 @@ export const Admin = class {
                 username
             },
             select: {
-                username: true,
+                id: true
             }
         })
 
@@ -74,11 +76,12 @@ export const Admin = class {
                 password: true
             }
         })
-        const adminBcrypt = await bcrypt.compare(password, adminPassword?.password as string)
+        const adminBcrypt = await bcrypt.compare(password, adminPassword?.password as string) 
         if(adminBcrypt){
-            return loginAdmin
+            const token = jwt.sign({id: loginAdmin?.id}, SECRET_KEY)
+           return {accessToken: token}
         }
-        throw new ErrorNotAuthorized('Password not gud.')
+        throw new ErrorNotAuthorized('Invalid Credentials')
     }
 
     //no patch?
