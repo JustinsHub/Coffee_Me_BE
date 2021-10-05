@@ -1,5 +1,4 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { protectedRoute } from "../middleware/auth";
 import { Admin } from "../models/adminModel";
 
 export const router = Router()

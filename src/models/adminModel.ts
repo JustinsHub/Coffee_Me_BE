@@ -56,6 +56,10 @@ export const Admin = class {
                 admin_only: isAdmin
             }
         })
+        if(registerNewAdmin){
+            const token = jwt.sign({id: registerNewAdmin.id}, SECRET_KEY)
+            return {accessToken: token}
+        }
         return registerNewAdmin 
     }
     static async loginAdminUser(username:string, password:string){
