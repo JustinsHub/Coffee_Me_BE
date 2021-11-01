@@ -1,16 +1,22 @@
 import { Router, Request, Response, NextFunction } from "express";
+import { ErrorBadRequest, ErrorNotFound } from "../expressErrors";
 import { Admin } from "../models/adminModel";
 
 export const router = Router()
 
 router.post('/admin/register', async(req:Request, res: Response, next: NextFunction) => {
     try {
-        const isAdmin: boolean = true //find out how to make someone an admin?
-        const { username, password} = req.body
-        const registerAdmin = await Admin.registerAdminUser(username, password, isAdmin) // add jwt?
-        if(isAdmin){
-            return res.status(201).json(registerAdmin)
+        const isAdmin: boolean = true //find out how to make someone an admin? //Doesnt have to be admin to register... This is registered after by Owner/Dev
+        const { username, password } = req.body
+        if(!username || !password){
+            throw new ErrorBadRequest("Must fill all input fields in order to register.")
         }
+
+        const registerAdmin = await Admin.registerAdminUser(username, password, isAdmin) 
+        if(!registerAdmin){
+            return new ErrorNotFound
+        } 
+        return res.status(201).json(registerAdmin)
     } catch (error) {
         return next(error)
     }

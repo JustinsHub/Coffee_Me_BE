@@ -36,6 +36,7 @@ export const Review: ReviewFactsInterface = class {
         })
         return singleReview
     }
+    
     static async createCoffeeFact(fact:string){
         //error handle, needs to be string
         const newCoffeeFact = await review_Facts.create({

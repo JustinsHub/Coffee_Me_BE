@@ -7,7 +7,7 @@ import { router as rejectedFacts } from './routes/rejectedFactsRoutes'
 import { router as adminUser } from './routes/adminRoutes'
 import { router as adminAuth } from './routes/adminAuthRoutes'
 import { errorHandler } from "./expressErrors";
-import { authenticateJWT, protectedRoute } from "./middleware/auth";
+import { authenticateJWT } from "./middleware/auth";
 
 const app = express()
 
@@ -17,11 +17,11 @@ app.use(cors())
 app.use(morgan('dev'))
 app.use(authenticateJWT)
 
-app.use('/coffee', coffeeFacts)
 app.use('/', reviewFacts)
 app.use('/', rejectedFacts)
 app.use('/', adminUser)
 app.use('/', adminAuth)
+app.use('/coffee', coffeeFacts)
 
 app.use(errorHandler)
 

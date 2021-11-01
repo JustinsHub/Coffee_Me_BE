@@ -24,7 +24,7 @@ router.get('/api/facts/:id', async(req: Request, res: Response, next: NextFuncti
 })
 
 router.post('/api/facts/:adminId/submit', async(req: Request, res: Response, next: NextFunction) => {
-    // this has to be posted by admin from review facts on approval TEST
+    //this has to be posted by admin from review facts on approval TEST
     //make login authentication/authorization for admin
 
     //when the admin logs in and checks for approval, it request this api to post on coffee facts. 

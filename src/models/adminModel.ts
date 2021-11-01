@@ -60,8 +60,8 @@ export const Admin = class {
             const token = jwt.sign({id: registerNewAdmin.id}, SECRET_KEY)
             return {accessToken: token}
         }
-        return registerNewAdmin 
     }
+
     static async loginAdminUser(username:string, password:string){
         const loginAdmin = await admin.findUnique({
             where: {
